@@ -14,23 +14,73 @@
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
-    <body class="font-sans antialiased">
-        <div class="min-h-screen bg-gray-100">
-            @include('layouts.navigation')
+    <body class="font-sans antialiased bg-gray-100">
+        <div class="min-h-screen flex">
+            <aside class="w-64 bg-slate-900 text-white flex flex-col">
+                <div class="px-6 py-5 border-b border-slate-700">
+                    <h1 class="text-xl font-bold">Dziennik Praktykanta</h1>
+                    <p class="text-sm text-slate-300 mt-1">Panel użytkownika</p>
+                </div>
 
-            <!-- Page Heading -->
-            @isset($header)
-                <header class="bg-white shadow">
-                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                        {{ $header }}
+                <nav class="flex-1 px-4 py-6 space-y-6">
+                    <div>
+                        <p class="text-xs uppercase tracking-wider text-slate-400 mb-3">Dziennik</p>
+                        <div class="space-y-2">
+                            <a href="{{ route('dashboard') }}" class="block px-3 py-2 rounded-lg hover:bg-slate-800">
+                                Dashboard
+                            </a>
+                            <a href="{{ route('entries.index') }}" class="block px-3 py-2 rounded-lg hover:bg-slate-800">
+                                Wpisy
+                            </a>
+                            <a href="{{ route('print.index') }}" class="block px-3 py-2 rounded-lg hover:bg-slate-800">
+                                Drukowanie
+                            </a>
+                        </div>
+                    </div>
+
+                    <div>
+                        <p class="text-xs uppercase tracking-wider text-slate-400 mb-3">Ustawienia</p>
+                        <div class="space-y-2">
+                            <a href="{{ route('profile.edit') }}" class="block px-3 py-2 rounded-lg hover:bg-slate-800">
+                                Konto
+                            </a>
+                            <a href="{{ route('settings.school') }}" class="block px-3 py-2 rounded-lg hover:bg-slate-800">
+                                Szkoła
+                            </a>
+                            <a href="{{ route('settings.company') }}" class="block px-3 py-2 rounded-lg hover:bg-slate-800">
+                                Firma
+                            </a>
+                        </div>
+                    </div>
+                </nav>
+            </aside>
+
+            <div class="flex-1 flex flex-col">
+                <header class="bg-white border-b border-gray-200 px-6 py-4 flex items-center justify-between">
+                    <h2 class="text-lg font-semibold text-gray-800">
+                        {{ $header ?? 'Panel użytkownika' }}
+                    </h2>
+
+                    <div class="flex items-center gap-4">
+                        <span class="text-sm text-gray-600">{{ auth()->user()->name }}</span>
+
+                        <a href="{{ route('profile.edit') }}" class="text-sm text-blue-600 hover:underline">
+                            Profil
+                        </a>
+
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+                            <button type="submit" class="text-sm text-red-600 hover:underline">
+                                Wyloguj
+                            </button>
+                        </form>
                     </div>
                 </header>
-            @endisset
 
-            <!-- Page Content -->
-            <main>
-                {{ $slot }}
-            </main>
+                <main class="flex-1 p-6">
+                    {{ $slot }}
+                </main>
+            </div>
         </div>
     </body>
 </html>
