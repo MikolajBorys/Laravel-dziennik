@@ -26,7 +26,7 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div class="md:col-span-2">
                     <label for="company_name" class="block text-sm font-medium text-gray-700 mb-1">Nazwa firmy</label>
-                    <input type="text" id="company_name" name="company_name" value="{{ old('company_name') }}" class="w-full rounded-lg border-gray-300 shadow-sm">
+                    <input type="text" id="company_name" name="company_name" value="{{ old('company_name', $profile?->company_name) }}" class="w-full rounded-lg border-gray-300 shadow-sm">
                     @error('company_name')
                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                     @enderror
@@ -34,7 +34,7 @@
 
                 <div>
                     <label for="nip" class="block text-sm font-medium text-gray-700 mb-1">NIP</label>
-                    <input type="text" id="nip" name="nip" value="{{ old('nip') }}" class="w-full rounded-lg border-gray-300 shadow-sm">
+                    <input type="text" id="nip" name="nip" value="{{ old('nip', $profile?->nip) }}" class="w-full rounded-lg border-gray-300 shadow-sm">
                     @error('nip')
                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                     @enderror
@@ -44,7 +44,7 @@
 
                 <div>
                     <label for="street" class="block text-sm font-medium text-gray-700 mb-1">Ulica</label>
-                    <input type="text" id="street" name="street" value="{{ old('street') }}" class="w-full rounded-lg border-gray-300 shadow-sm">
+                    <input type="text" id="street" name="street" value="{{ old('street', $profile?->street) }}" class="w-full rounded-lg border-gray-300 shadow-sm">
                     @error('street')
                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                     @enderror
@@ -52,7 +52,7 @@
 
                 <div>
                     <label for="street_number" class="block text-sm font-medium text-gray-700 mb-1">Numer</label>
-                    <input type="text" id="street_number" name="street_number" value="{{ old('street_number') }}" class="w-full rounded-lg border-gray-300 shadow-sm">
+                    <input type="text" id="street_number" name="street_number" value="{{ old('street_number', $profile?->street_number) }}" class="w-full rounded-lg border-gray-300 shadow-sm">
                     @error('street_number')
                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                     @enderror
@@ -60,7 +60,7 @@
 
                 <div>
                     <label for="postal_code" class="block text-sm font-medium text-gray-700 mb-1">Kod pocztowy</label>
-                    <input type="text" id="postal_code" name="postal_code" value="{{ old('postal_code') }}" class="w-full rounded-lg border-gray-300 shadow-sm">
+                    <input type="text" id="postal_code" name="postal_code" value="{{ old('postal_code', $profile?->postal_code) }}" class="w-full rounded-lg border-gray-300 shadow-sm">
                     @error('postal_code')
                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                     @enderror
@@ -68,7 +68,7 @@
 
                 <div>
                     <label for="city" class="block text-sm font-medium text-gray-700 mb-1">Miasto</label>
-                    <input type="text" id="city" name="city" value="{{ old('city') }}" class="w-full rounded-lg border-gray-300 shadow-sm">
+                    <input type="text" id="city" name="city" value="{{ old('city', $profile?->city) }}" class="w-full rounded-lg border-gray-300 shadow-sm">
                     @error('city')
                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                     @enderror
@@ -76,7 +76,7 @@
 
                 <div>
                     <label for="country" class="block text-sm font-medium text-gray-700 mb-1">Kraj</label>
-                    <input type="text" id="country" name="country" value="{{ old('country', 'Polska') }}" class="w-full rounded-lg border-gray-300 shadow-sm">
+                    <input type="text" id="country" name="country" value="{{ old('country', $profile?->country ?? 'Polska') }}" class="w-full rounded-lg border-gray-300 shadow-sm">
                     @error('country')
                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                     @enderror
@@ -88,7 +88,7 @@
 
                 <div>
                     <label for="supervisor_name" class="block text-sm font-medium text-gray-700 mb-1">Imię i nazwisko opiekuna</label>
-                    <input type="text" id="supervisor_name" name="supervisor_name" value="{{ old('supervisor_name') }}" class="w-full rounded-lg border-gray-300 shadow-sm">
+                    <input type="text" id="supervisor_name" name="supervisor_name" value="{{ old('supervisor_name', $profile?->supervisor_name) }}" class="w-full rounded-lg border-gray-300 shadow-sm">
                     @error('supervisor_name')
                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                     @enderror
@@ -96,7 +96,7 @@
 
                 <div>
                     <label for="supervisor_role" class="block text-sm font-medium text-gray-700 mb-1">Stanowisko opiekuna</label>
-                    <input type="text" id="supervisor_role" name="supervisor_role" value="{{ old('supervisor_role') }}" class="w-full rounded-lg border-gray-300 shadow-sm">
+                    <input type="text" id="supervisor_role" name="supervisor_role" value="{{ old('supervisor_role', $profile?->supervisor_role) }}" class="w-full rounded-lg border-gray-300 shadow-sm">
                     @error('supervisor_role')
                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                     @enderror
@@ -104,7 +104,7 @@
 
                 <div>
                     <label for="supervisor_phone" class="block text-sm font-medium text-gray-700 mb-1">Telefon opiekuna</label>
-                    <input type="text" id="supervisor_phone" name="supervisor_phone" value="{{ old('supervisor_phone') }}" class="w-full rounded-lg border-gray-300 shadow-sm">
+                    <input type="text" id="supervisor_phone" name="supervisor_phone" value="{{ old('supervisor_phone', $profile?->supervisor_phone) }}" class="w-full rounded-lg border-gray-300 shadow-sm">
                     @error('supervisor_phone')
                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                     @enderror
@@ -112,7 +112,7 @@
 
                 <div>
                     <label for="supervisor_email" class="block text-sm font-medium text-gray-700 mb-1">E-mail opiekuna</label>
-                    <input type="email" id="supervisor_email" name="supervisor_email" value="{{ old('supervisor_email') }}" class="w-full rounded-lg border-gray-300 shadow-sm">
+                    <input type="email" id="supervisor_email" name="supervisor_email" value="{{ old('supervisor_email', $profile?->supervisor_email) }}" class="w-full rounded-lg border-gray-300 shadow-sm">
                     @error('supervisor_email')
                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                     @enderror
