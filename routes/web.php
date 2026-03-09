@@ -26,6 +26,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/settings/school', [SchoolProfileController::class, 'edit'])->name('settings.school');
     Route::post('/settings/school', [SchoolProfileController::class, 'update'])->name('settings.school.update');
 
+    Route::get('/settings/account', [ProfileController::class, 'edit'])->name('settings.account');
     Route::get('/settings/company', [CompanyProfileController::class, 'edit'])->name('settings.company');
     Route::post('/settings/company', [CompanyProfileController::class, 'update'])->name('settings.company.update');
 });

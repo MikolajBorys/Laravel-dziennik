@@ -41,7 +41,7 @@
                     <div>
                         <p class="text-xs uppercase tracking-wider text-slate-400 mb-3">Ustawienia</p>
                         <div class="space-y-2">
-                            <a href="{{ route('profile.edit') }}" class="block px-3 py-2 rounded-lg hover:bg-slate-800">
+                            <a href="{{ route('settings.account') }}" class="block px-3 py-2 rounded-lg hover:bg-slate-800">
                                 Konto
                             </a>
                             <a href="{{ route('settings.school') }}" class="block px-3 py-2 rounded-lg hover:bg-slate-800">
@@ -64,7 +64,7 @@
                     <div class="flex items-center gap-4">
                         <span class="text-sm text-gray-600">{{ auth()->user()->name }}</span>
 
-                        <a href="{{ route('profile.edit') }}" class="text-sm text-blue-600 hover:underline">
+                        <a href="{{ route('settings.account') }}" class="text-sm text-blue-600 hover:underline">
                             Profil
                         </a>
 
