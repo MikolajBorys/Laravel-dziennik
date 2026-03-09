@@ -19,6 +19,9 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     
     Route::view('/entries', 'entries.index')->name('entries.index');
+    Route::view('/entries/create', 'entries.create')->name('entries.create');
+    Route::view('/entries/edit', 'entries.edit')->name('entries.edit');
+
     Route::view('/print', 'print.index')->name('print.index');
 
 
