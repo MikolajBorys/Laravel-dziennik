@@ -60,7 +60,7 @@
 
                 <div>
                     <label for="postal_code" class="block text-sm font-medium text-gray-700 mb-1">Kod pocztowy</label>
-                    <input type="text" id="postal_code" name="postal_code" value="{{ old('postal_code', $profile?->postal_code) }}" class="w-full rounded-lg border-gray-300 shadow-sm">
+                    <input type="text" id="postal_code" name="postal_code" value="{{ old('postal_code', $profile?->postal_code) }}" maxlength="6" class="w-full rounded-lg border-gray-300 shadow-sm">
                     @error('postal_code')
                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                     @enderror
@@ -127,3 +127,15 @@
         </form>
     </div>
 </x-app-layout>
+{{-- same liczby, usuwanie liter, dodawanie myślnika w kodzie pocztowym --}}
+<script>
+    document.getElementById('postal_code').addEventListener('input', function(e) {
+        let value = e.target.value.replace(/\D/g, '');
+    
+        if (value.length > 2) {
+            value = value.slice(0, 2) + '-' + value.slice(2, 5);
+        }
+    
+        e.target.value = value;
+    });
+    </script>
