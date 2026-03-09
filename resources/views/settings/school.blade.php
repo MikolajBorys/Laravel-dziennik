@@ -21,7 +21,8 @@
             </div>
         @endif
 
-        <form method="POST" action="#">
+        <form method="POST" action="{{ route('settings.school.update') }}">
+            @csrf
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div class="md:col-span-2">
                     <label for="school_name" class="block text-sm font-medium text-gray-700 mb-1">Nazwa szkoły</label>

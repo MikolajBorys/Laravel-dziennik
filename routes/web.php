@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\SchoolProfileController;
+use App\Http\Controllers\CompanyProfileController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -19,8 +21,13 @@ Route::middleware('auth')->group(function () {
     Route::view('/entries', 'entries.index')->name('entries.index');
     Route::view('/print', 'print.index')->name('print.index');
 
-    Route::view('/settings/school', 'settings.school')->name('settings.school');
-    Route::view('/settings/company', 'settings.company')->name('settings.company');
+
+    //Nowe Route'y - podpięte do formularza w widokach
+    Route::get('/settings/school', [SchoolProfileController::class, 'edit'])->name('settings.school');
+    Route::post('/settings/school', [SchoolProfileController::class, 'update'])->name('settings.school.update');
+
+    Route::get('/settings/company', [CompanyProfileController::class, 'edit'])->name('settings.company');
+    Route::post('/settings/company', [CompanyProfileController::class, 'update'])->name('settings.company.update');
 });
 
 require __DIR__.'/auth.php';
