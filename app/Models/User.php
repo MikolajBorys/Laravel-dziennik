@@ -55,4 +55,9 @@ class User extends Authenticatable
     {
         return $this->hasOne(CompanyProfile::class);
     }
+
+    public function dailyEntries()
+    {
+        return $this->hasMany(DailyEntry::class);
+    }
 }
