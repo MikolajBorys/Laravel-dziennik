@@ -48,10 +48,16 @@
                                 : 'flex items-center gap-3 rounded-xl px-4 py-3 text-[15px] font-medium text-slate-500 transition hover:bg-white/50 hover:text-slate-800' }}">
                                 Dashboard
                                 </a>
-                                <a href="{{ route('entries.index') }}" class="flex items-center gap-3 rounded-2xl px-4 py-3 text-[15px] font-medium text-slate-500 transition hover:bg-white/50 hover:text-slate-800">
+                                <a href="{{ route('entries.index') }}"
+                                class="{{ request()->routeIs('entries.*')
+                                ? 'flex items-center gap-3 rounded-xl bg-white px-4 py-3 text-[15px] font-medium text-indigo-500 shadow-sm'
+                                : 'flex items-center gap-3 rounded-xl px-4 py-3 text-[15px] font-medium text-slate-500 transition hover:bg-white/50 hover:text-slate-800' }}">
                                     Wpisy
                                 </a>
-                                <a href="{{ route('print.index') }}" class="flex items-center gap-3 rounded-2xl px-4 py-3 text-[15px] font-medium text-slate-500 transition hover:bg-white/50 hover:text-slate-800">
+                                <a href="{{ route('print.index') }}"
+                                class="{{ request()->routeIs('print.*')
+                                ? 'flex items-center gap-3 rounded-xl bg-white px-4 py-3 text-[15px] font-medium text-indigo-500 shadow-sm'
+                                : 'flex items-center gap-3 rounded-xl px-4 py-3 text-[15px] font-medium text-slate-500 transition hover:bg-white/50 hover:text-slate-800' }}">
                                     Drukowanie
                                 </a>
                             </div>
@@ -60,13 +66,13 @@
                         <div>
                             <p class="text-xs uppercase tracking-wider text-slate-400 mb-3">Ustawienia</p>
                             <div class="space-y-2">
-                                <a href="{{ route('settings.account') }}" class="block px-3 py-2 rounded-lg hover:bg-slate-800">
+                                <a href="{{ route('settings.account') }}" class="{{ request()->routeIs('settings.account') ? 'flex items-center gap-3 rounded-xl bg-white px-4 py-3 text-[15px] font-bold text-indigo-500 shadow-sm' : 'flex items-center gap-3 rounded-xl px-4 py-3 text-[15px] font-bold text-slate-500 transition hover:bg-white/50 hover:text-slate-800' }}">
                                     Konto
                                 </a>
-                                <a href="{{ route('settings.school') }}" class="block px-3 py-2 rounded-lg hover:bg-slate-800">
+                                <a href="{{ route('settings.school') }}" class="{{ request()->routeIs('settings.school') ? 'flex items-center gap-3 rounded-xl bg-white px-4 py-3 text-[15px] font-bold text-indigo-500 shadow-sm' : 'flex items-center gap-3 rounded-xl px-4 py-3 text-[15px] font-bold text-slate-500 transition hover:bg-white/50 hover:text-slate-800' }}">
                                     Szkoła
                                 </a>
-                                <a href="{{ route('settings.company') }}" class="block px-3 py-2 rounded-lg hover:bg-slate-800">
+                                <a href="{{ route('settings.company') }}" class="{{ request()->routeIs('settings.company') ? 'flex items-center gap-3 rounded-xl bg-white px-4 py-3 text-[15px] font-bold text-indigo-500 shadow-sm' : 'flex items-center gap-3 rounded-xl px-4 py-3 text-[15px] font-bold text-slate-500 transition hover:bg-white/50 hover:text-slate-800' }}">
                                     Firma
                                 </a>
                             </div>
