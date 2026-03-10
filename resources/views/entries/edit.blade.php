@@ -9,33 +9,36 @@
             Tutaj będzie można edytować zapisany wpis z praktyk.
         </p>
 
-        <form method="POST" action="#">
+        <form method="POST" action="{{ route('entries.update', $entry->id) }}">
+            @csrf
+            @method('PUT')
+
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                     <label for="entry_date" class="block text-sm font-medium text-gray-700 mb-1">Data</label>
-                    <input type="date" id="entry_date" name="entry_date" class="w-full rounded-lg border-gray-300 shadow-sm">
+                    <input type="date" id="entry_date" name="entry_date" value="{{ $entry->entry_date }}" class="w-full rounded-lg border-gray-300 shadow-sm">
                 </div>
 
                 <div></div>
 
                 <div>
                     <label for="time_from" class="block text-sm font-medium text-gray-700 mb-1">Godzina od</label>
-                    <input type="time" id="time_from" name="time_from" class="w-full rounded-lg border-gray-300 shadow-sm">
+                    <input type="time" id="time_from" name="time_from" value="{{ $entry->time_from }}" class="w-full rounded-lg border-gray-300 shadow-sm">
                 </div>
 
                 <div>
                     <label for="time_to" class="block text-sm font-medium text-gray-700 mb-1">Godzina do</label>
-                    <input type="time" id="time_to" name="time_to" class="w-full rounded-lg border-gray-300 shadow-sm">
+                    <input type="time" id="time_to" name="time_to" value="{{ $entry->time_to }}" class="w-full rounded-lg border-gray-300 shadow-sm">
                 </div>
 
                 <div class="md:col-span-2">
                     <label for="tasks" class="block text-sm font-medium text-gray-700 mb-1">Wykonane zadania</label>
-                    <textarea id="tasks" name="tasks" rows="6" class="w-full rounded-lg border-gray-300 shadow-sm"></textarea>
+                    <textarea id="tasks" name="tasks" rows="6" class="w-full rounded-lg border-gray-300 shadow-sm">{{ $entry->tasks }}</textarea>
                 </div>
 
                 <div class="md:col-span-2">
                     <label for="notes" class="block text-sm font-medium text-gray-700 mb-1">Notatki</label>
-                    <textarea id="notes" name="notes" rows="4" class="w-full rounded-lg border-gray-300 shadow-sm"></textarea>
+                    <textarea id="notes" name="notes" rows="4" class="w-full rounded-lg border-gray-300 shadow-sm">{{ $entry->notes }}</textarea>
                 </div>
             </div>
 

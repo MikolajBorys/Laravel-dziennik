@@ -28,22 +28,61 @@
                         <th class="px-6 py-4 text-right">Akcje</th>
                     </tr>
                 </thead>
+
                 <tbody>
+
+                    @forelse ($entries as $entry)
+
                     <tr class="border-b border-gray-100">
-                        <td class="px-6 py-4">Brak wpisów</td>
-                        <td class="px-6 py-4">—</td>
-                        <td class="px-6 py-4 text-gray-500">Po dodaniu wpisów pojawią się tutaj.</td>
+                        <td class="px-6 py-4">
+                            {{ $entry->entry_date }}
+                        </td>
+
+                        <td class="px-6 py-4">
+                            {{ $entry->time_from }} - {{ $entry->time_to }}
+                        </td>
+
+                        <td class="px-6 py-4">
+                            {{ Str::limit($entry->tasks, 80) }}
+                        </td>
+
                         <td class="px-6 py-4 text-right">
                             <div class="flex items-center justify-end gap-3 text-sm">
-                                <a href="{{ route('entries.edit') }}" class="text-blue-600 hover:underline">
+
+                                <a href="{{ route('entries.edit', $entry->id) }}"
+                                   class="text-blue-600 hover:underline">
                                     Edytuj
                                 </a>
-                                <button type="button" class="text-red-600 hover:underline">
-                                    Usuń
-                                </button>
+
+                                <form method="POST" action="{{ route('entries.destroy', $entry->id) }}">
+                                    @csrf
+                                    @method('DELETE')
+
+                                    <button type="submit"
+                                        class="text-red-600 hover:underline">
+                                        Usuń
+                                    </button>
+                                </form>
+
                             </div>
                         </td>
                     </tr>
+
+                    @empty
+
+                    <tr>
+                        <td class="px-6 py-4 text-gray-500">
+                            Brak wpisów
+                        </td>
+                        <td class="px-6 py-4">—</td>
+                        <td class="px-6 py-4 text-gray-500">
+                            Po dodaniu wpisów pojawią się tutaj.
+                        </td>
+                        <td class="px-6 py-4"></td>
+                    </tr>
+
+                    @endforelse
+
                 </tbody>
             </table>
         </div>

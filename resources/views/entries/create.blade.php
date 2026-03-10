@@ -9,7 +9,8 @@
             Uzupełnij dane dotyczące dnia praktyk.
         </p>
 
-        <form method="POST" action="#">
+       <form method="POST" action="{{ route('entries.store') }}">
+            @csrf
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                     <label for="entry_date" class="block text-sm font-medium text-gray-700 mb-1">Data</label>
