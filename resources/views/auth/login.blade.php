@@ -28,9 +28,9 @@
 
             {{-- Logo / Nagłówek --}}
             <div class="text-center mb-8">
-                <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-white/60 backdrop-blur-xl border border-white/70 shadow-sm mb-5">
+                <a href="{{ url('/') }}" class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-white/60 backdrop-blur-xl border border-white/70 shadow-sm mb-5 ">
                     <span class="text-2xl font-bold text-indigo-500">DP</span>
-                </div>
+                </a>
                 <h1 class="text-3xl font-bold text-slate-800 tracking-tight">Dziennik Praktykanta</h1>
                 <p class="mt-2 text-sm text-slate-500">Zaloguj się do swojego konta</p>
             </div>
