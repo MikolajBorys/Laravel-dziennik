@@ -3,88 +3,326 @@
         Wpisy
     </x-slot>
 
-    <div class="space-y-6">
-        <div class="flex items-center justify-between">
+    <div class="space-y-6"
+         x-data="{
+            deleteModal: false,
+            deleteUrl: '',
+            deleteDate: '',
+            openDelete(url, date) {
+                this.deleteUrl = url;
+                this.deleteDate = date;
+                this.deleteModal = true;
+            }
+         }">
+
+        {{-- ══════════════════════════════════════ --}}
+        {{-- MODAL USUWANIA                         --}}
+        {{-- ══════════════════════════════════════ --}}
+        <template x-teleport="body">
+            <div x-show="deleteModal"
+                 x-transition:enter="transition ease-out duration-200"
+                 x-transition:enter-start="opacity-0"
+                 x-transition:enter-end="opacity-100"
+                 x-transition:leave="transition ease-in duration-150"
+                 x-transition:leave-start="opacity-100"
+                 x-transition:leave-end="opacity-0"
+                 class="fixed inset-0 z-50 flex items-center justify-center p-4"
+                 @keydown.escape.window="deleteModal = false"
+                 style="display: none;">
+
+                {{-- Overlay --}}
+                <div class="absolute inset-0 bg-slate-900/40 backdrop-blur-sm"
+                     @click="deleteModal = false"></div>
+
+                {{-- Panel --}}
+                <div x-show="deleteModal"
+                     x-transition:enter="transition ease-out duration-200"
+                     x-transition:enter-start="opacity-0 scale-95 translate-y-4"
+                     x-transition:enter-end="opacity-100 scale-100 translate-y-0"
+                     x-transition:leave="transition ease-in duration-150"
+                     x-transition:leave-start="opacity-100 scale-100 translate-y-0"
+                     x-transition:leave-end="opacity-0 scale-95 translate-y-4"
+                     class="relative w-full max-w-md bg-white/80 backdrop-blur-xl rounded-2xl border border-white/70 shadow-2xl p-8">
+
+                    {{-- Ikona --}}
+                    <div class="flex items-center justify-center w-14 h-14 rounded-2xl bg-red-100/60 mx-auto mb-5">
+                        <svg class="w-7 h-7 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0"/>
+                        </svg>
+                    </div>
+
+                    {{-- Treść --}}
+                    <div class="text-center mb-8">
+                        <h3 class="text-lg font-bold text-slate-800 mb-2">Usunąć wpis?</h3>
+                        <p class="text-sm text-slate-500 leading-relaxed">
+                            Czy na pewno chcesz usunąć wpis z dnia
+                            <span class="font-semibold text-slate-700" x-text="deleteDate"></span>?
+                            <br>Tej operacji nie można cofnąć.
+                        </p>
+                    </div>
+
+                    {{-- Przyciski --}}
+                    <div class="flex items-center gap-3">
+                        <button @click="deleteModal = false"
+                                class="flex-1 inline-flex items-center justify-center gap-2 rounded-xl bg-white/60 border border-slate-200/80 px-5 py-3 text-sm font-semibold text-slate-600 hover:bg-white/80 hover:text-slate-800 transition-all">
+                            Anuluj
+                        </button>
+
+                        <form :action="deleteUrl" method="POST" class="flex-1">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit"
+                                    class="w-full inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-red-500 to-red-600 px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-red-500/25 hover:from-red-600 hover:to-red-700 active:scale-[0.98] transition-all">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79"/>
+                                </svg>
+                                Usuń wpis
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </template>
+
+        {{-- ══════════════════════════════════════ --}}
+        {{-- ALERTY                                  --}}
+        {{-- ══════════════════════════════════════ --}}
+
+        {{-- Alert: Sukces --}}
+        @if (session('success'))
+            <div
+                x-data="{ show: true }"
+                x-init="setTimeout(() => show = false, 3000)"
+                x-show="show"
+                x-transition
+                class="flex items-center gap-3 rounded-xl border border-green-200/60 bg-green-50/50 backdrop-blur-md px-5 py-4 text-green-700 !mb-6"
+            >
+                <svg class="w-5 h-5 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+                </svg>
+                <span class="text-sm font-medium">{{ session('success') }}</span>
+            </div>
+        @endif
+
+        {{-- Alert: Błędy --}}
+        @if ($errors->any())
+            <div class="flex items-center gap-3 rounded-xl border border-red-200/60 bg-red-50/50 backdrop-blur-md px-5 py-4 text-red-700">
+                <svg class="w-5 h-5 text-red-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z"/>
+                </svg>
+                <span class="text-sm font-medium">Wystąpiły błędy. Sprawdź formularz i spróbuj ponownie.</span>
+            </div>
+        @endif
+
+        {{-- ══════════════════════════════════════ --}}
+        {{-- NAGŁÓWEK                                --}}
+        {{-- ══════════════════════════════════════ --}}
+        <div class="flex items-center justify-between !mt-0">
             <div>
-                <h3 class="text-xl font-semibold text-gray-800">Dziennik praktyk</h3>
-                <p class="text-gray-600 mt-1">
+                <h3 class="text-xl font-bold text-slate-800">Dziennik praktyk</h3>
+                <p class="text-sm text-slate-500 mt-1">
                     Tutaj znajdziesz swoje wpisy dzienne z praktyk.
                 </p>
             </div>
 
             <a href="{{ route('entries.create') }}"
-               class="px-5 py-2.5 bg-slate-900 text-white rounded-lg hover:bg-slate-800">
+               class="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-indigo-500 to-indigo-600 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-indigo-500/25 hover:from-indigo-600 hover:to-indigo-700 active:scale-[0.98] transition-all">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.5v15m7.5-7.5h-15"/>
+                </svg>
                 Dodaj wpis
             </a>
         </div>
 
-        <div class="bg-white shadow rounded-xl overflow-hidden">
-            <table class="w-full text-sm text-left text-gray-700">
-                <thead class="bg-gray-50 border-b border-gray-200 text-gray-600 uppercase text-xs">
-                    <tr>
-                        <th class="px-6 py-4">Data</th>
-                        <th class="px-6 py-4">Godziny</th>
-                        <th class="px-6 py-4">Zadania</th>
-                        <th class="px-6 py-4 text-right">Akcje</th>
-                    </tr>
-                </thead>
+        {{-- ══════════════════════════════════════ --}}
+        {{-- TABELA / LISTA                          --}}
+        {{-- ══════════════════════════════════════ --}}
+        <div class="bg-white/50 backdrop-blur-md rounded-2xl border border-white/70 shadow-sm overflow-hidden">
 
-                <tbody>
+            {{-- Desktop: tabela --}}
+            <div class="hidden sm:block">
+                <table class="w-full text-sm text-left">
+                    <thead>
+                        <tr class="border-b border-slate-200/60">
+                            <th class="px-6 py-4 text-xs font-semibold uppercase tracking-wider text-slate-400">Data</th>
+                            <th class="px-6 py-4 text-xs font-semibold uppercase tracking-wider text-slate-400">Godziny</th>
+                            <th class="px-6 py-4 text-xs font-semibold uppercase tracking-wider text-slate-400">Zadania</th>
+                            <th class="px-6 py-4 text-xs font-semibold uppercase tracking-wider text-slate-400 text-right">Akcje</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100/80">
 
-                    @forelse ($entries as $entry)
+                        @forelse ($entries as $entry)
+                            <tr class="group hover:bg-white/40 transition-colors">
+                                {{-- Data --}}
+                                <td class="px-6 py-4">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-10 h-10 rounded-xl bg-indigo-100/60 flex items-center justify-center flex-shrink-0">
+                                            <span class="text-xs font-bold text-indigo-600">
+                                                {{ \Carbon\Carbon::parse($entry->entry_date)->format('d') }}
+                                            </span>
+                                        </div>
+                                        <div>
+                                            <p class="text-sm font-semibold text-slate-700">
+                                                {{ \Carbon\Carbon::parse($entry->entry_date)->translatedFormat('l') }}
+                                            </p>
+                                            <p class="text-xs text-slate-400">
+                                                {{ \Carbon\Carbon::parse($entry->entry_date)->translatedFormat('j F Y') }}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </td>
 
-                    <tr class="border-b border-gray-100">
-                        <td class="px-6 py-4">
-                            {{ $entry->entry_date }}
-                        </td>
+                                {{-- Godziny --}}
+                                <td class="px-6 py-4">
+                                    <span class="inline-flex items-center gap-1.5 text-sm text-slate-600">
+                                        <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+                                        </svg>
+                                        {{ $entry->time_from }} - {{ $entry->time_to }}
+                                    </span>
+                                </td>
 
-                        <td class="px-6 py-4">
-                            {{ $entry->time_from }} - {{ $entry->time_to }}
-                        </td>
+                                {{-- Zadania --}}
+                                <td class="px-6 py-4">
+                                    <p class="text-sm text-slate-600 leading-relaxed max-w-md">
+                                        {{ Str::limit($entry->tasks, 80) }}
+                                    </p>
+                                </td>
 
-                        <td class="px-6 py-4">
-                            {{ Str::limit($entry->tasks, 80) }}
-                        </td>
+                                {{-- Akcje --}}
+                                <td class="px-6 py-4 text-right">
+                                    <div class="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                                        <a href="{{ route('entries.edit', $entry->id) }}"
+                                           class="inline-flex items-center gap-1.5 rounded-lg bg-indigo-50/60 px-3 py-1.5 text-xs font-semibold text-indigo-600 hover:bg-indigo-100/60 transition-colors"
+                                           title="Edytuj wpis">
+                                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125"/>
+                                            </svg>
+                                            Edytuj
+                                        </a>
 
-                        <td class="px-6 py-4 text-right">
-                            <div class="flex items-center justify-end gap-3 text-sm">
+                                        <button @click="openDelete('{{ route('entries.destroy', $entry->id) }}', '{{ \Carbon\Carbon::parse($entry->entry_date)->translatedFormat('j F Y') }}')"
+                                                class="inline-flex items-center gap-1.5 rounded-lg bg-red-50/60 px-3 py-1.5 text-xs font-semibold text-red-600 hover:bg-red-100/60 transition-colors"
+                                                title="Usuń wpis">
+                                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0"/>
+                                            </svg>
+                                            Usuń
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
 
-                                <a href="{{ route('entries.edit', $entry->id) }}"
-                                   class="text-blue-600 hover:underline">
-                                    Edytuj
-                                </a>
+                        @empty
+                            <tr>
+                                <td colspan="4" class="px-6 py-16">
+                                    <div class="flex flex-col items-center justify-center text-center">
+                                        <div class="w-16 h-16 rounded-2xl bg-slate-100/60 flex items-center justify-center mb-4">
+                                            <svg class="w-8 h-8 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m3.75 9v6m3-3H9m1.5-12H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z"/>
+                                            </svg>
+                                        </div>
+                                        <h4 class="text-base font-bold text-slate-700 mb-1">Brak wpisów</h4>
+                                        <p class="text-sm text-slate-500 mb-5">Dodaj swój pierwszy wpis do dziennika praktyk.</p>
+                                        <a href="{{ route('entries.create') }}"
+                                           class="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-indigo-500 to-indigo-600 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-indigo-500/25 hover:from-indigo-600 hover:to-indigo-700 active:scale-[0.98] transition-all">
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.5v15m7.5-7.5h-15"/>
+                                            </svg>
+                                            Dodaj pierwszy wpis
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforelse
 
-                                <form method="POST" action="{{ route('entries.destroy', $entry->id) }}">
-                                    @csrf
-                                    @method('DELETE')
+                    </tbody>
+                </table>
+            </div>
 
-                                    <button type="submit"
-                                        class="text-red-600 hover:underline">
-                                        Usuń
-                                    </button>
-                                </form>
-
+            {{-- Mobile: karty --}}
+            <div class="sm:hidden divide-y divide-slate-100/80">
+                @forelse ($entries as $entry)
+                    <div class="p-5 space-y-3">
+                        {{-- Data + godziny --}}
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-xl bg-indigo-100/60 flex items-center justify-center flex-shrink-0">
+                                    <span class="text-xs font-bold text-indigo-600">
+                                        {{ \Carbon\Carbon::parse($entry->entry_date)->format('d') }}
+                                    </span>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-semibold text-slate-700">
+                                        {{ \Carbon\Carbon::parse($entry->entry_date)->translatedFormat('l') }}
+                                    </p>
+                                    <p class="text-xs text-slate-400">
+                                        {{ \Carbon\Carbon::parse($entry->entry_date)->translatedFormat('j F Y') }}
+                                    </p>
+                                </div>
                             </div>
-                        </td>
-                    </tr>
+                            <span class="inline-flex items-center gap-1 text-xs font-medium text-slate-500 bg-slate-100/60 px-2.5 py-1 rounded-lg">
+                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+                                </svg>
+                                {{ $entry->time_from }} — {{ $entry->time_to }}
+                            </span>
+                        </div>
 
-                    @empty
+                        {{-- Zadania --}}
+                        <p class="text-sm text-slate-600 leading-relaxed">
+                            {{ Str::limit($entry->tasks, 120) }}
+                        </p>
 
-                    <tr>
-                        <td class="px-6 py-4 text-gray-500">
-                            Brak wpisów
-                        </td>
-                        <td class="px-6 py-4">—</td>
-                        <td class="px-6 py-4 text-gray-500">
-                            Po dodaniu wpisów pojawią się tutaj.
-                        </td>
-                        <td class="px-6 py-4"></td>
-                    </tr>
+                        {{-- Akcje --}}
+                        <div class="flex items-center gap-2 pt-1">
+                            <a href="{{ route('entries.edit', $entry->id) }}"
+                               class="inline-flex items-center gap-1.5 rounded-lg bg-indigo-50/60 px-3 py-1.5 text-xs font-semibold text-indigo-600 hover:bg-indigo-100/60 transition-colors">
+                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125"/>
+                                </svg>
+                                Edytuj
+                            </a>
 
-                    @endforelse
+                            <button @click="openDelete('{{ route('entries.destroy', $entry->id) }}', '{{ \Carbon\Carbon::parse($entry->entry_date)->translatedFormat('j F Y') }}')"
+                                    class="inline-flex items-center gap-1.5 rounded-lg bg-red-50/60 px-3 py-1.5 text-xs font-semibold text-red-600 hover:bg-red-100/60 transition-colors">
+                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0"/>
+                                </svg>
+                                Usuń
+                            </button>
+                        </div>
+                    </div>
 
-                </tbody>
-            </table>
+                @empty
+                    <div class="p-10 text-center">
+                        <div class="w-16 h-16 rounded-2xl bg-slate-100/60 flex items-center justify-center mx-auto mb-4">
+                            <svg class="w-8 h-8 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m3.75 9v6m3-3H9m1.5-12H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z"/>
+                            </svg>
+                        </div>
+                        <h4 class="text-base font-bold text-slate-700 mb-1">Brak wpisów</h4>
+                        <p class="text-sm text-slate-500 mb-5">Dodaj swój pierwszy wpis do dziennika praktyk.</p>
+                        <a href="{{ route('entries.create') }}"
+                           class="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-indigo-500 to-indigo-600 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-indigo-500/25 hover:from-indigo-600 hover:to-indigo-700 active:scale-[0.98] transition-all">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.5v15m7.5-7.5h-15"/>
+                            </svg>
+                            Dodaj pierwszy wpis
+                        </a>
+                    </div>
+                @endforelse
+            </div>
+
         </div>
+
+        {{-- Paginacja --}}
+        @if ($entries->hasPages())
+            <div class="pt-2">
+                {{ $entries->links() }}
+            </div>
+        @endif
+
     </div>
 </x-app-layout>

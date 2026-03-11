@@ -12,7 +12,7 @@ class DailyEntryController extends Controller
     {
         $entries = DailyEntry::where('user_id', auth()->id())
             ->orderBy('entry_date', 'desc')
-            ->get();
+            ->paginate(10);
 
         return view('entries.index', compact('entries'));
     }
