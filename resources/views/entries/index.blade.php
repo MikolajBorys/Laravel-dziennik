@@ -179,7 +179,7 @@
                                         <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
                                         </svg>
-                                        {{ $entry->time_from }} - {{ $entry->time_to }}
+                                        {{ \Carbon\Carbon::parse($entry->time_from)->format('H:i') }} - {{ \Carbon\Carbon::parse($entry->time_to)->format('H:i') }}
                                     </span>
                                 </td>
 

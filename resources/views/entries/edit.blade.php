@@ -93,7 +93,7 @@
                                     <input type="time"
                                            id="time_from"
                                            name="time_from"
-                                           value="{{ old('time_from', $entry->time_from) }}"
+                                           value="{{ old('time_from', \Carbon\Carbon::parse($entry->time_from)->format('H:i')) }}"
                                            class="block w-full pl-11 pr-4 py-3 rounded-xl
                                                   bg-white/60 border border-slate-200/80
                                                   text-slate-800
@@ -121,7 +121,7 @@
                                     <input type="time"
                                            id="time_to"
                                            name="time_to"
-                                           value="{{ old('time_to', $entry->time_to) }}"
+                                           value="{{ old('time_to', \Carbon\Carbon::parse($entry->time_to)->format('H:i')) }}"
                                            class="block w-full pl-11 pr-4 py-3 rounded-xl
                                                   bg-white/60 border border-slate-200/80
                                                   text-slate-800
