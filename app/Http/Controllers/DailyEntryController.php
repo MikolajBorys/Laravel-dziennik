@@ -131,4 +131,19 @@ class DailyEntryController extends Controller
             ->route('entries.index')
             ->with('success', 'Wpis został usunięty.');
     }
+
+    public function scopeReport($query, $userId, $dateFrom = null, $dateTo = null)
+    {
+        $query->where('user_id', $userId);
+
+        if ($dateFrom) {
+            $query->whereDate('entry_date', '>=', $dateFrom);
+        }
+
+        if ($dateTo) {
+            $query->whereDate('entry_date', '<=', $dateTo);
+        }
+
+        return $query->orderBy('entry_date');
+    }
 }
