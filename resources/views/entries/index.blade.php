@@ -230,10 +230,10 @@
                                            text-slate-800
                                            focus:outline-none focus:ring-2 focus:ring-indigo-500/40 focus:border-indigo-400
                                            transition duration-200">
-                                <option value="newest" {{ request('sort', 'newest') === 'newest' ? 'selected' : '' }}>
+                                <option value="desc" {{ request('sort', 'desc') === 'desc' ? 'selected' : '' }}>
                                     Najnowsze najpierw
                                 </option>
-                                <option value="oldest" {{ request('sort') === 'oldest' ? 'selected' : '' }}>
+                                <option value="asc" {{ request('sort') === 'asc' ? 'selected' : '' }}>
                                     Najstarsze najpierw
                                 </option>
                             </select>
@@ -294,7 +294,7 @@
                     </span>
                 @endif
 
-                @if(request('sort') === 'oldest')
+                @if(request('sort') === 'asc')
                     <span class="inline-flex items-center gap-1 rounded-lg bg-amber-50/60 border border-amber-100/60 px-2.5 py-1 text-xs font-medium text-amber-600">
                         <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7.5 7.5 3m0 0L12 7.5M7.5 3v13.5"/>

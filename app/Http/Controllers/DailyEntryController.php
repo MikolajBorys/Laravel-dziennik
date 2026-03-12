@@ -8,11 +8,28 @@ use Illuminate\Validation\Rule;
 
 class DailyEntryController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $entries = DailyEntry::where('user_id', auth()->id())
-            ->orderBy('entry_date', 'desc')
-            ->paginate(10);
+        $query = DailyEntry::where('user_id', auth()->id());
+
+        if ($request->filled('date_from')) {
+            $query->whereDate('entry_date', '>=', $request->date_from);
+        }
+
+        if ($request->filled('date_to')) {
+            $query->whereDate('entry_date', '<=', $request->date_to);
+        }   
+
+        $sort = $request->get('sort', 'desc');
+
+        if (!in_array($sort, ['asc', 'desc'])) {
+            $sort = 'desc';
+        }
+
+        $entries = $query
+            ->orderBy('entry_date', $sort)
+            ->paginate(10)
+            ->withQueryString();
 
         return view('entries.index', compact('entries'));
     }
