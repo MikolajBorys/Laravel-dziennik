@@ -11,8 +11,35 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth','verified'])->name('dashboard');
+    $entries = \App\Models\DailyEntry::where('user_id', auth()->id());
+
+    $entriesCount = (clone $entries)->count();
+
+    $daysCount = (clone $entries)->distinct('entry_date')->count('entry_date');
+
+    $totalMinutes = (clone $entries)->get()->sum(function ($entry) {
+        $from = \Carbon\Carbon::parse($entry->time_from);
+        $to = \Carbon\Carbon::parse($entry->time_to);
+
+        return $from->diffInMinutes($to);
+    });
+
+    $totalHours = floor($totalMinutes / 60);
+    $remainingMinutes = $totalMinutes % 60;
+
+    $latestEntries = (clone $entries)
+        ->orderBy('entry_date', 'desc')
+        ->take(5)
+        ->get();
+
+    return view('dashboard', compact(
+        'entriesCount',
+        'daysCount',
+        'totalHours',
+        'remainingMinutes',
+        'latestEntries'
+    ));
+})->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
 

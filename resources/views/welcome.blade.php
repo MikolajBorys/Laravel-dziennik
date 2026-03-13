@@ -20,12 +20,9 @@
             linear-gradient(135deg, #f8f7f2 0%, #f7f6f3 100%);
       ">
 
-    {{-- ═══════════════════════════════════════════ --}}
-    {{-- NAWIGACJA                                   --}}
-    {{-- ═══════════════════════════════════════════ --}}
     <nav class="fixed top-0 inset-x-0 z-50 bg-white/60 backdrop-blur-xl border-b border-white/70">
-        <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-            <a href="/" class="flex items-center gap-3">
+        <div class="max-w-6xl mx-auto px-6 py-4 flex items-center sm:justify-between justify-end">
+            <a href="/" class="items-center gap-3 hidden sm:flex">
                 <div class="flex items-center justify-center w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-500 text-white text-sm font-bold shadow-md">
                     DP
                 </div>
@@ -58,11 +55,7 @@
     </nav>
 
 
-    {{-- ═══════════════════════════════════════════ --}}
-    {{-- HERO                                        --}}
-    {{-- ═══════════════════════════════════════════ --}}
     <section class="relative pt-40 pb-24 px-6 overflow-hidden">
-        {{-- Dekoracyjne kółka --}}
         <div class="absolute top-20 left-10 w-72 h-72 bg-indigo-200/30 rounded-full blur-3xl pointer-events-none"></div>
         <div class="absolute bottom-10 right-10 w-96 h-96 bg-purple-200/20 rounded-full blur-3xl pointer-events-none"></div>
 
@@ -104,19 +97,18 @@
                 @endauth
             </div>
 
-            {{-- Mini statystyki --}}
-            <div class="mt-16 flex items-center justify-center gap-8 sm:gap-14">
-                <div class="text-center">
+            <div class="mt-16 flex flex-col sm:flex-row items-center justify-center gap-8 sm:gap-14">
+                <div class="text-center flex-1">
                     <p class="text-3xl font-extrabold text-slate-800">30s</p>
                     <p class="text-sm text-slate-500 mt-1">by dodać wpis</p>
                 </div>
-                <div class="w-px h-10 bg-slate-200/80"></div>
-                <div class="text-center">
+                <div class="hidden sm:block w-px h-10 bg-slate-200/80"></div>
+                <div class="text-center flex-1 mt-8 sm:mt-0">
                     <p class="text-3xl font-extrabold text-slate-800">0 zł</p>
                     <p class="text-sm text-slate-500 mt-1">całkowicie darmowe</p>
                 </div>
-                <div class="w-px h-10 bg-slate-200/80"></div>
-                <div class="text-center">
+                <div class="hidden sm:block w-px h-10 bg-slate-200/80"></div>
+                <div class="text-center flex-1 mt-8 sm:mt-0">
                     <p class="text-3xl font-extrabold text-slate-800">24/7</p>
                     <p class="text-sm text-slate-500 mt-1">dostęp z każdego urządzenia</p>
                 </div>
@@ -124,10 +116,6 @@
         </div>
     </section>
 
-
-    {{-- ═══════════════════════════════════════════ --}}
-    {{-- PROBLEM → ROZWIĄZANIE                      --}}
-    {{-- ═══════════════════════════════════════════ --}}
     <section class="py-24 px-6">
         <div class="max-w-5xl mx-auto">
             <div class="text-center mb-16">
@@ -140,7 +128,6 @@
             </div>
 
             <div class="grid md:grid-cols-2 gap-6">
-                {{-- Kolumna: Papierowy (problemy) --}}
                 <div class="bg-red-50/40 backdrop-blur-md rounded-2xl border border-red-200/40 p-8 space-y-5">
                     <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-red-100/60 text-sm font-semibold text-red-600">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18 18 6M6 6l12 12"/></svg>
@@ -169,7 +156,6 @@
                     @endforeach
                 </div>
 
-                {{-- Kolumna: Elektroniczny (rozwiązania) --}}
                 <div class="bg-green-50/40 backdrop-blur-md rounded-2xl border border-green-200/40 p-8 space-y-5">
                     <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-green-100/60 text-sm font-semibold text-green-600">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="m4.5 12.75 6 6 9-13.5"/></svg>
@@ -202,9 +188,6 @@
     </section>
 
 
-    {{-- ═══════════════════════════════════════════ --}}
-    {{-- FUNKCJE                                     --}}
-    {{-- ═══════════════════════════════════════════ --}}
     <section id="funkcje" class="py-24 px-6">
         <div class="max-w-6xl mx-auto">
             <div class="text-center mb-16">
@@ -221,7 +204,6 @@
             </div>
 
             <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                {{-- 1. Szybkie wpisy --}}
                 <div class="group bg-white/50 backdrop-blur-md rounded-2xl border border-white/70 shadow-sm p-7 hover:shadow-md hover:bg-white/70 transition-all duration-300">
                     <div class="w-12 h-12 rounded-xl bg-indigo-100/60 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
                         <svg class="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10"/></svg>
@@ -232,7 +214,6 @@
                     </p>
                 </div>
 
-                {{-- 2. Edycja w locie --}}
                 <div class="group bg-white/50 backdrop-blur-md rounded-2xl border border-white/70 shadow-sm p-7 hover:shadow-md hover:bg-white/70 transition-all duration-300">
                     <div class="w-12 h-12 rounded-xl bg-purple-100/60 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
                         <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182"/></svg>
@@ -243,7 +224,6 @@
                     </p>
                 </div>
 
-                {{-- 3. Automatyczne statystyki --}}
                 <div class="group bg-white/50 backdrop-blur-md rounded-2xl border border-white/70 shadow-sm p-7 hover:shadow-md hover:bg-white/70 transition-all duration-300">
                     <div class="w-12 h-12 rounded-xl bg-amber-100/60 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
                         <svg class="w-6 h-6 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z"/></svg>
@@ -254,7 +234,6 @@
                     </p>
                 </div>
 
-                {{-- 4. Dane szkoły i firmy --}}
                 <div class="group bg-white/50 backdrop-blur-md rounded-2xl border border-white/70 shadow-sm p-7 hover:shadow-md hover:bg-white/70 transition-all duration-300">
                     <div class="w-12 h-12 rounded-xl bg-green-100/60 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
                         <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M2.25 21h19.5M3.75 3v18m4.5-18v18M15 3v18m4.5-18v18M6 6.75h.008M6 9.75h.008M6 12.75h.008M6 15.75h.008M17.25 6.75h.008M17.25 9.75h.008M17.25 12.75h.008M17.25 15.75h.008M9.75 21V18a2.25 2.25 0 0 1 2.25-2.25h0A2.25 2.25 0 0 1 14.25 18v3"/></svg>
@@ -265,7 +244,6 @@
                     </p>
                 </div>
 
-                {{-- 5. Drukowanie --}}
                 <div class="group bg-white/50 backdrop-blur-md rounded-2xl border border-white/70 shadow-sm p-7 hover:shadow-md hover:bg-white/70 transition-all duration-300">
                     <div class="w-12 h-12 rounded-xl bg-rose-100/60 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
                         <svg class="w-6 h-6 text-rose-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6.72 13.829c-.24.03-.48.062-.72.096m.72-.096a42.415 42.415 0 0 1 10.56 0m-10.56 0L6.34 18m10.94-4.171c.24.03.48.062.72.096m-.72-.096L17.66 18m0 0 .229 2.523a1.125 1.125 0 0 1-1.12 1.227H7.231c-.662 0-1.18-.568-1.12-1.227L6.34 18m11.318 0h1.091A2.25 2.25 0 0 0 21 15.75V9.456c0-1.081-.768-2.015-1.837-2.175a48.055 48.055 0 0 0-1.913-.247M6.34 18H5.25A2.25 2.25 0 0 1 3 15.75V9.456c0-1.081.768-2.015 1.837-2.175a48.041 48.041 0 0 1 1.913-.247m10.5 0a48.536 48.536 0 0 0-10.5 0m10.5 0V3.375c0-.621-.504-1.125-1.125-1.125h-8.25c-.621 0-1.125.504-1.125 1.125v3.659M9.75 8.25h4.5"/></svg>
@@ -276,7 +254,6 @@
                     </p>
                 </div>
 
-                {{-- 6. Bezpieczeństwo --}}
                 <div class="group bg-white/50 backdrop-blur-md rounded-2xl border border-white/70 shadow-sm p-7 hover:shadow-md hover:bg-white/70 transition-all duration-300">
                     <div class="w-12 h-12 rounded-xl bg-sky-100/60 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
                         <svg class="w-6 h-6 text-sky-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z"/></svg>
@@ -291,9 +268,6 @@
     </section>
 
 
-    {{-- ═══════════════════════════════════════════ --}}
-    {{-- JAK TO DZIAŁA                               --}}
-    {{-- ═══════════════════════════════════════════ --}}
     <section class="py-24 px-6">
         <div class="max-w-4xl mx-auto">
             <div class="text-center mb-16">
@@ -342,10 +316,6 @@
         </div>
     </section>
 
-
-    {{-- ═══════════════════════════════════════════ --}}
-    {{-- DLACZEGO WARTO                              --}}
-    {{-- ═══════════════════════════════════════════ --}}
     <section class="py-24 px-6">
         <div class="max-w-5xl mx-auto">
             <div class="bg-white/50 backdrop-blur-xl rounded-3xl border border-white/70 shadow-sm p-10 sm:p-14">
@@ -384,9 +354,6 @@
     </section>
 
 
-    {{-- ═══════════════════════════════════════════ --}}
-    {{-- FAQ                                         --}}
-    {{-- ═══════════════════════════════════════════ --}}
     <section class="py-24 px-6" x-data="{ open: null }">
         <div class="max-w-3xl mx-auto">
             <div class="text-center mb-16">
@@ -442,9 +409,6 @@
     </section>
 
 
-    {{-- ═══════════════════════════════════════════ --}}
-    {{-- CTA KOŃCOWE                                 --}}
-    {{-- ═══════════════════════════════════════════ --}}
     <section class="py-24 px-6">
         <div class="max-w-3xl mx-auto text-center">
             <div class="bg-gradient-to-br from-indigo-500 to-purple-600 rounded-3xl p-12 sm:p-16 shadow-2xl shadow-indigo-500/20 relative overflow-hidden">
@@ -486,10 +450,6 @@
         </div>
     </section>
 
-
-    {{-- ═══════════════════════════════════════════ --}}
-    {{-- STOPKA                                      --}}
-    {{-- ═══════════════════════════════════════════ --}}
     <footer class="py-10 px-6 border-t border-slate-200/50">
         <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
             <div class="flex items-center gap-3">

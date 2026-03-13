@@ -16,9 +16,6 @@
             }
          }">
 
-        {{-- ══════════════════════════════════════ --}}
-        {{-- MODAL USUWANIA                         --}}
-        {{-- ══════════════════════════════════════ --}}
         <template x-teleport="body">
             <div x-show="deleteModal"
                  x-transition:enter="transition ease-out duration-200"
@@ -80,9 +77,6 @@
             </div>
         </template>
 
-        {{-- ══════════════════════════════════════ --}}
-        {{-- ALERTY                                  --}}
-        {{-- ══════════════════════════════════════ --}}
 
         @if (session('success'))
             <div
@@ -108,13 +102,10 @@
             </div>
         @endif
 
-        {{-- ══════════════════════════════════════ --}}
-        {{-- NAGŁÓWEK                                --}}
-        {{-- ══════════════════════════════════════ --}}
         <div class="flex items-center justify-between !mt-0">
             <div>
-                <h3 class="text-xl font-bold text-slate-800">Dziennik praktyk</h3>
-                <p class="text-sm text-slate-500 mt-1">
+                <h3 class="text-xl font-bold text-slate-800 hidden sm:block">Dziennik praktyk</h3>
+                <p class="text-sm text-slate-500 mt-1 hidden sm:block">
                     Tutaj znajdziesz swoje wpisy dzienne z praktyk.
                 </p>
             </div>
@@ -143,9 +134,6 @@
             </div>
         </div>
 
-        {{-- ══════════════════════════════════════ --}}
-        {{-- PANEL FILTRÓW                           --}}
-        {{-- ══════════════════════════════════════ --}}
         <div x-show="filtersOpen"
              x-transition:enter="transition ease-out duration-200"
              x-transition:enter-start="opacity-0 -translate-y-2"
@@ -313,9 +301,6 @@
             </div>
         @endif
 
-        {{-- ══════════════════════════════════════ --}}
-        {{-- TABELA / LISTA                          --}}
-        {{-- ══════════════════════════════════════ --}}
         <div class="bg-white/50 backdrop-blur-md rounded-2xl border border-white/70 shadow-sm overflow-hidden">
 
             {{-- Desktop: tabela --}}
@@ -356,7 +341,7 @@
                                         <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
                                         </svg>
-                                        {{ \Carbon\Carbon::parse($entry->time_from)->format('H:i') }} — {{ \Carbon\Carbon::parse($entry->time_to)->format('H:i') }}
+                                        {{ \Carbon\Carbon::parse($entry->time_from)->format('H:i') }} - {{ \Carbon\Carbon::parse($entry->time_to)->format('H:i') }}
                                     </span>
                                 </td>
 
