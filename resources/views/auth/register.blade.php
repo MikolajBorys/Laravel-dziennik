@@ -96,7 +96,7 @@
                     {{-- Hasło --}}
                     <div class="mt-5">
                         <label for="password" class="block text-sm font-semibold text-slate-700 mb-1.5">
-                            {{ __('auth.password') }}
+                            {{ __('auth.login_password') }}
                         </label>
                         <div class="relative">
                             <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
